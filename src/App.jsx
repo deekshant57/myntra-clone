@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
+import Login from './components/Login';
 import Products from "./components/Products";
 import Signup from "./components/Signup";
-import men from "./data/mensData.json";
 
 function App() {
    return (
@@ -9,8 +9,9 @@ function App() {
          {/* <h1>Welcome to home page</h1> */}
          {/* <Products data={men}/> */}
          <Routes>
-            <Route path="/men" element={<Products data={men} />}></Route>
+            <Route path="/men" element={<Products data={"menProducts"} />}></Route>
             <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/login" element={<Login />}></Route>
          </Routes>
          {/* {Links} */}
          {/* {Routes} */}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -7,8 +7,26 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import "./products.css";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
+import { db } from '../firebase';
+import { useState } from 'react';
 export default function Products({ data }) {
    //    console.log("data:", data);
+   const [info, setInfo] = useState([]);
+
+   useEffect(() => {
+      Fetchdata();
+   },[])
+
+   const Fetchdata = () => {
+      db.collection(data)
+         .get()
+         .then((querySnapshot) => {
+            querySnapshot.forEach((element) => {
+               let data = element.data();
+               setInfo((arr) => [...arr, data]);
+            });
+         });
+   };
    const theme = createTheme({
       status: {
          danger: "#e53e3e",
@@ -27,16 +45,16 @@ export default function Products({ data }) {
 
    return (
       <div className="productsContainer">
-         {data.map((e) => {
+         {info.map((e) => {
             return (
-               <Card sx={{ maxWidth: 225}}>
+               <Card sx={{ maxWidth: 225 }}>
                   <CardActionArea>
                      <CardMedia
                         component="img"
                         width="100%"
                         image={e.link}
                         alt="green iguana"
-                        
+                        style={{loading: "lazy"}}
                      />
                      <CardContent>
                         <Typography gutterBottom variant="p" component="div">
