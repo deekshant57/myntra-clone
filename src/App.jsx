@@ -14,6 +14,22 @@ function App() {
                path="/men"
                element={<Products data={"menTShirts"} />}
             ></Route>
+            <Route
+               path="/women"
+               element={<Products data={"womensProducts"} />}
+            ></Route>
+            <Route
+               path="/boys"
+               element={<Products data={"boysData"} />}
+            ></Route>
+            <Route
+               path="/home"
+               element={<Products data={"homeData"} />}
+            ></Route>
+            <Route
+               path="/beauty"
+               element={<Products data={"beautyData"} />}
+            ></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/cart" element={<Cart />}></Route>
