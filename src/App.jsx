@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import Login from './components/Login';
+import Cart from "./components/Cart";
+import Login from "./components/Login";
 import Products from "./components/Products";
 import Signup from "./components/Signup";
 
@@ -9,9 +10,13 @@ function App() {
          {/* <h1>Welcome to home page</h1> */}
          {/* <Products data={men}/> */}
          <Routes>
-            <Route path="/men" element={<Products data={"menProducts"} />}></Route>
+            <Route
+               path="/men"
+               element={<Products data={"menTShirts"} />}
+            ></Route>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/cart" element={<Cart />}></Route>
          </Routes>
          {/* {Links} */}
          {/* {Routes} */}

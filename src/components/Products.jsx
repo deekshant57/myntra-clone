@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -7,26 +7,33 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import "./products.css";
 import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@emotion/react";
-import { db } from '../firebase';
-import { useState } from 'react';
+import { db } from "../firebase";
+import { useState } from "react";
+import ReactLoading from "react-loading";
+import { CartContext } from "../contexts/CartContext";
+import { Link } from "react-router-dom";
 export default function Products({ data }) {
    //    console.log("data:", data);
    const [info, setInfo] = useState([]);
+   const [loading, setLoading] = useState(true);
+   const { cart, handleCart } = useContext(CartContext);
 
    useEffect(() => {
       Fetchdata();
-   },[])
+   }, []);
 
-   const Fetchdata = () => {
+   const Fetchdata = async () => {
       db.collection(data)
          .get()
          .then((querySnapshot) => {
             querySnapshot.forEach((element) => {
                let data = element.data();
                setInfo((arr) => [...arr, data]);
+               setLoading(false);
             });
          });
    };
+
    const theme = createTheme({
       status: {
          danger: "#e53e3e",
@@ -44,40 +51,55 @@ export default function Products({ data }) {
    });
 
    return (
-      <div className="productsContainer">
-         {info.map((e) => {
-            return (
-               <Card sx={{ maxWidth: 225 }}>
-                  <CardActionArea>
-                     <CardMedia
-                        component="img"
-                        width="100%"
-                        image={e.link}
-                        alt="green iguana"
-                        style={{loading: "lazy"}}
-                     />
-                     <CardContent>
-                        <Typography gutterBottom variant="p" component="div">
-                           <b>{e.title}</b>
-                        </Typography>
-                        <Typography>Rs. {e.price}</Typography>
-                        <Typography>{e.rating}</Typography>
-                     </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                     <ThemeProvider theme={theme}>
-                        <Button
-                           size="small"
-                           color="neutral"
-                           variant="contained"
-                        >
-                           Add To Cart
-                        </Button>
-                     </ThemeProvider>
-                  </CardActions>
-               </Card>
-            );
-         })}
-      </div>
+      <>
+         <Link to="/cart">cart</Link>
+         <div className="productsContainer">
+            {loading ? (
+               <ReactLoading
+                  type={"spin"}
+                  color={"#FF3E6C"}
+                  height={667}
+                  width={375}
+               />
+            ) : null}
+            {info.map((e) => {
+               return (
+                  <Card sx={{ maxWidth: 225 }}>
+                     <CardActionArea>
+                        <CardMedia
+                           component="img"
+                           width="100%"
+                           image={e.link}
+                           alt={e.title}
+                        />
+                        <CardContent>
+                           <Typography gutterBottom variant="p" component="div">
+                              <b>{e.title}</b>
+                           </Typography>
+                           <Typography>{e.brand}</Typography>
+                           <Typography>Rs. {e.price}</Typography>
+                           <Typography>{e.strikedOff}</Typography>
+                           <Typography>{e.discount}%</Typography>
+                        </CardContent>
+                     </CardActionArea>
+                     <CardActions>
+                        <ThemeProvider theme={theme}>
+                           <Button
+                              size="small"
+                              color="neutral"
+                              variant="contained"
+                              onClick={() => {
+                                 handleCart(e);
+                              }}
+                           >
+                              Add To Cart
+                           </Button>
+                        </ThemeProvider>
+                     </CardActions>
+                  </Card>
+               );
+            })}
+         </div>
+      </>
    );
 }

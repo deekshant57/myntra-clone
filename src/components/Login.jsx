@@ -38,7 +38,14 @@ export default function Signup() {
                      <Form.Label>Password</Form.Label>
                      <Form.Control type="password" ref={passwordRef} required />
                   </Form.Group>
-                  <Button className="w-100" type="submit">
+                  <Button
+                     className="w-100"
+                     type="submit"
+                     style={{
+                        backgroundColor: "rgb(244,28,178)",
+                        border: "none",
+                     }}
+                  >
                      Log In
                   </Button>
                </Form>
