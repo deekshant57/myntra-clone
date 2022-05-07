@@ -10,7 +10,7 @@ import { BeautyNav } from "./MiniNavbar/BeautyNav";
 import { StudioNav } from "./MiniNavbar/Studio";
 
 const Div = styled.nav`
-  /* position: fixed; */
+  position: fixed;
   display: flex;
   padding: 5px 10px;
   width: 100%;
@@ -201,7 +201,9 @@ export const Navbar = () => {
             alt=""
           />
           <br></br>
-          <span><Link to={"/wishlist"}>Wishlist</Link></span>
+          <span>
+            <Link to={"/wishlist"}>Wishlist</Link>
+          </span>
         </p>
 
         <Link
