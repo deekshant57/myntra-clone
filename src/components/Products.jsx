@@ -71,6 +71,7 @@ export default function Products({ data }) {
                            width="100%"
                            image={e.link}
                            alt={e.title}
+                           loading="lazy"
                         />
                         <CardContent>
                            <Typography gutterBottom variant="p" component="div">
