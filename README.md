@@ -13,11 +13,12 @@ _To start with the Project run the following command in terminal
 
 ### Team Members
 
-- **[Deekshant Vaishnav](https://github.com/deekshant57)**
 - **[Adnan Khateeb](https://github.com/adnankhateeb)**
+- **[Deekshant Vaishnav](https://github.com/deekshant57)**
+- **[Neelam Singh](https://github.com/Neelam2026)**
 - **[Shashank Shalabh](https://github.com/salove16)**
 - **[Uday Kiran Katta ](https://github.com/uday2925)**
-- **[Neelam Singh](https://github.com/Neelam2026)**
+
 
 ---
 
