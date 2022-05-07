@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { Container, PaginationItem } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState, useContext } from "react";
 
@@ -8,8 +8,6 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
-import IconButton from "@mui/material/IconButton";
-import CommentIcon from "@mui/icons-material/Comment";
 import Divider from "@mui/material/Divider";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -18,6 +16,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { CartContext } from "../Context/CartContext";
 import { Link } from "react-router-dom";
@@ -25,6 +25,8 @@ import { db } from "../firebase";
 
 import "../App.css";
 import { ShoppingBag } from "@mui/icons-material";
+
+import Pagination from "@mui/material/Pagination";
 
 const Products = ({ data }) => {
   console.log("data:", data);
@@ -48,6 +50,15 @@ const Products = ({ data }) => {
         });
       });
   };
+
+  const [page, setPage] = useState(1);
+
+  // const handleSearch = () => {
+  //   return info.filter(
+  //     (item) => item.title.toLowerCase().includes(search)
+  //     // item.symbol.toLowerCase().includes(search)
+  //   );
+  // };
 
   // const [data, setData] = useState([]);
   // const getData = () => {
@@ -82,6 +93,7 @@ const Products = ({ data }) => {
         >
           <Divider />
           <h2>Brands</h2>
+
           {info.map((value) => {
             const labelId = `checkbox-list-label-${value.brand}`;
 
@@ -211,7 +223,32 @@ const Products = ({ data }) => {
             </Card>
           );
         })}
+        <Pagination
+          count={(info.length / 10).toFixed(0)}
+          // renderItem={(item) => (
+          //   <PaginationItem
+          //     components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+          //     {...info}
+          //   />
+          // )}
+          style={{
+            padding: 20,
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        />
       </div>
+
+      {/* <DataGrid
+        pagination
+        pageSize={10}
+        rowsPerPageOptions={[10]}
+        components={{
+          Pagination: CustomPagination,
+        }}
+        {...info}
+      /> */}
     </Container>
   );
 };
